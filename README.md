@@ -67,7 +67,7 @@ The deployment workflow also runs on pushes that touch `versions.json`, `index.h
 `favicon.svg`, `scripts/build-site.sh`, or the workflow itself, and it can be run by hand from the
 Actions tab to redeploy the current pins.
 
-The build works around an upstream PhotoCraft packaging bug: releases 0.17.0–0.21.0 ship the
+The build works around an upstream PhotoCraft packaging bug: releases 0.17.0 to 0.21.0 ship the
 wasm-bindgen `snippets/` folder at the site root while `app/photocraft-web.js` imports it relative
 to `app/`, so the app never starts. The script copies `snippets/` into `app/` until a release
 contains the fix ([storytold/photocraft#10017](https://github.com/storytold/photocraft/issues/10017)).
@@ -98,7 +98,7 @@ SolidCraft. The deployment keeps each app's license material next to the app:
 The landing page ships English and Simplified Chinese. It picks a language from `?lang=en` /
 `?lang=zh`, then from the choice stored in `localStorage`, then from the browser language; the
 EN / 中文 switch in the header overrides both and keeps the query string in the URL. All copy
-lives in the `messages` object in `index.html` — add another language object and a button to
+lives in the `messages` object in `index.html`; add another language object and a button to
 extend it. App names are brands and stay as-is; descriptions and site text are translated.
 
 ## Preview locally
