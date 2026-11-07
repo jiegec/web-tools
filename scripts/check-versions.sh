@@ -4,11 +4,15 @@
 # The file is rewritten only when something changed, so the scheduled workflow can
 # commit it (keeping the repository active) and trigger the Pages deployment.
 #
+# Most apps publish a <app>-web-*.zip asset. VibeOffice is plain static HTML/JS
+# with no web zip, so its release source archive is pinned instead and its
+# public/ directory is published.
+#
 # Usage: scripts/check-versions.sh
 #
 # Environment:
 #   GH_TOKEN     token for the GitHub API (recommended, avoids rate limits)
-#   SOURCE_ORG   GitHub owner of the apps (default: storytold)
+#   SOURCE_ORG   GitHub owner of the storytold apps (default: storytold)
 #
 # Under GitHub Actions, sets the step output "changed" to true or false.
 
@@ -22,6 +26,7 @@ APPS=(
   wordcraft photocraft deckcraft gridcraft
   pdfcraft lightcraft filmcraft cadcraft soundcraft materialcraft
   designcraft texturecraft figcraft vectorcraft effectcraft
+  vibeoffice
 )
 
 for tool in curl jq; do
@@ -43,12 +48,20 @@ if [[ -n "${GH_TOKEN:-}" ]]; then
   api_headers+=(-H "Authorization: Bearer $GH_TOKEN")
 fi
 
-: > "$WORK/apps.tsv"
+repo_for() {
+  case "$1" in
+    vibeoffice) echo "tcchen2026/VibeOffice" ;;
+    *) echo "$ORG/$1" ;;
+  esac
+}
+
+: > "$WORK/apps.jsonl"
 
 for app in "${APPS[@]}"; do
-  echo "==> $app: checking the latest release"
+  repo="$(repo_for "$app")"
+  echo "==> $app: checking the latest release of $repo"
 
-  api_url="$API/repos/$ORG/$app/releases/latest"
+  api_url="$API/repos/$repo/releases/latest"
   response="$(curl -sSL --retry 3 --retry-delay 2 --connect-timeout 20 \
     "${api_headers[@]}" -w '\n%{http_code}' "$api_url")" || {
     echo "error: could not reach $api_url" >&2
@@ -66,36 +79,47 @@ for app in "${APPS[@]}"; do
   fi
 
   tag="$(jq -er '.tag_name' <<<"$release")" || {
-    echo "error: $ORG/$app does not have a latest release" >&2
+    echo "error: $repo does not have a latest release" >&2
     exit 1
   }
   released="$(jq -r '.published_at // ""' <<<"$release")"
   release_url="$(jq -r '.html_url // ""' <<<"$release")"
-  web_zip="$(jq -r --arg prefix "${app}-web-" '
-    first(.assets[]?
-          | select(.name | startswith($prefix) and endswith(".zip"))
-          | .browser_download_url) // empty
-  ' <<<"$release")"
 
-  if [[ -z "$web_zip" ]]; then
-    echo "error: $ORG/$app@$tag has no ${app}-web-*.zip asset" >&2
-    exit 1
+  if [[ "$app" == "vibeoffice" ]]; then
+    tarball="https://github.com/$repo/archive/refs/tags/$tag.tar.gz"
+    jq -n --arg app "$app" --arg version "$tag" --arg released "$released" \
+      --arg release_url "$release_url" --arg tarball "$tarball" \
+      '{key: $app,
+        value: {version: $version, released: $released,
+                release_url: $release_url, tarball: $tarball, subdir: "public"}}' \
+      >> "$WORK/apps.jsonl"
+  else
+    web_zip="$(jq -r --arg prefix "${app}-web-" '
+      first(.assets[]?
+            | select(.name | startswith($prefix) and endswith(".zip"))
+            | .browser_download_url) // empty
+    ' <<<"$release")"
+
+    if [[ -z "$web_zip" ]]; then
+      echo "error: $repo@$tag has no ${app}-web-*.zip asset" >&2
+      exit 1
+    fi
+
+    jq -n --arg app "$app" --arg version "$tag" --arg released "$released" \
+      --arg release_url "$release_url" --arg web_zip "$web_zip" \
+      '{key: $app,
+        value: {version: $version, released: $released,
+                release_url: $release_url, web_zip: $web_zip}}' \
+      >> "$WORK/apps.jsonl"
   fi
 
-  printf '%s\t%s\t%s\t%s\t%s\n' \
-    "$app" "$tag" "$released" "$release_url" "$web_zip" >> "$WORK/apps.tsv"
   echo "    $tag ($released)"
 done
 
-jq -Rn --arg checked_at "$(date -u +%Y-%m-%dT%H:%M:%SZ)" '
-  [inputs
-   | select(length > 0)
-   | split("\t")
-   | {key: .[0],
-      value: {version: .[1], released: .[2], release_url: .[3], web_zip: .[4]}}]
-  | from_entries
+jq -s --arg checked_at "$(date -u +%Y-%m-%dT%H:%M:%SZ)" '
+  from_entries
   | {checked_at: $checked_at, apps: .}
-' < "$WORK/apps.tsv" > "$WORK/versions.json"
+' < "$WORK/apps.jsonl" > "$WORK/versions.json"
 
 changed=true
 if [[ -f "$VERSIONS" ]] &&

@@ -1,5 +1,5 @@
 {
-  "checked_at": "2026-11-07T15:37:37Z",
+  "checked_at": "2026-11-07T15:43:26Z",
   "apps": {
     "wordcraft": {
       "version": "v0.16.0",
@@ -90,6 +90,13 @@
       "released": "2026-11-06T20:26:02Z",
       "release_url": "https://github.com/storytold/effectcraft/releases/tag/v0.22.0",
       "web_zip": "https://github.com/storytold/effectcraft/releases/download/v0.22.0/effectcraft-web-0.22.0.zip"
+    },
+    "vibeoffice": {
+      "version": "v2026.11.04-2ee100",
+      "released": "2026-11-04T00:57:15Z",
+      "release_url": "https://github.com/tcchen2026/VibeOffice/releases/tag/v2026.11.04-2ee100",
+      "tarball": "https://github.com/tcchen2026/VibeOffice/archive/refs/tags/v2026.11.04-2ee100.tar.gz",
+      "subdir": "public"
     }
   }
 }

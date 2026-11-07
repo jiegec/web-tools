@@ -2,14 +2,15 @@
 #
 # Assemble the web-tools site from the versions pinned in versions.json:
 #   <out>/index.html, <out>/favicon.svg, <out>/versions.json,
-#   and <out>/<app>/ with that release's web (WebAssembly) build.
+#   and <out>/<app>/ with that release's web build: a WebAssembly zip, or the
+#   static source tree of an app that ships plain HTML/JS (VibeOffice).
 #
 # versions.json is maintained by scripts/check-versions.sh.
 #
 # Usage:
 #   scripts/build-site.sh [output-dir]     (default: ./dist)
 #
-# Requires: curl, jq, unzip.
+# Requires: curl, jq, tar, unzip.
 
 set -euo pipefail
 
@@ -19,10 +20,11 @@ APPS=(
   wordcraft photocraft deckcraft gridcraft
   pdfcraft lightcraft filmcraft cadcraft soundcraft materialcraft
   designcraft texturecraft figcraft vectorcraft effectcraft
+  vibeoffice
 )
 VERSIONS="$ROOT/versions.json"
 
-for tool in curl jq unzip; do
+for tool in curl jq tar unzip; do
   if ! command -v "$tool" >/dev/null 2>&1; then
     echo "error: '$tool' is required but was not found in PATH" >&2
     exit 1
@@ -54,32 +56,56 @@ for app in "${APPS[@]}"; do
     echo "error: versions.json has no version for $app" >&2
     exit 1
   }
-  asset_url="$(jq -r --arg app "$app" '.apps[$app].web_zip // empty' "$VERSIONS")"
-  if [[ -z "$asset_url" ]]; then
-    echo "error: versions.json has no web_zip for $app" >&2
-    exit 1
-  fi
-
-  archive="$WORK/$app.zip"
-  echo "==> $app: downloading $tag"
-  if ! curl -fsSL --retry 3 --retry-delay 2 --connect-timeout 20 \
-    -o "$archive" "$asset_url"; then
-    echo "error: could not download $asset_url" >&2
-    exit 1
-  fi
+  web_zip="$(jq -r --arg app "$app" '.apps[$app].web_zip // empty' "$VERSIONS")"
+  tarball="$(jq -r --arg app "$app" '.apps[$app].tarball // empty' "$VERSIONS")"
 
   extract="$WORK/extract-$app"
   mkdir -p -- "$extract"
-  unzip -q "$archive" -d "$extract"
 
-  # The zip holds a single top-level directory (e.g. wordcraft-web-0.16.0/);
-  # accept a zip with index.html at its root too.
-  source_root="$(find "$extract" -mindepth 1 -maxdepth 1 -type d -print -quit)"
-  if [[ -z "$source_root" || ! -f "$source_root/index.html" ]]; then
-    source_root="$extract"
-  fi
-  if [[ ! -f "$source_root/index.html" ]]; then
-    echo "error: $app@$tag web zip does not contain an index.html" >&2
+  if [[ -n "$web_zip" ]]; then
+    archive="$WORK/$app.zip"
+    echo "==> $app: downloading $tag"
+    if ! curl -fsSL --retry 3 --retry-delay 2 --connect-timeout 20 \
+      -o "$archive" "$web_zip"; then
+      echo "error: could not download $web_zip" >&2
+      exit 1
+    fi
+
+    unzip -q "$archive" -d "$extract"
+
+    # The zip holds a single top-level directory (e.g. wordcraft-web-0.16.0/);
+    # accept a zip with index.html at its root too.
+    source_root="$(find "$extract" -mindepth 1 -maxdepth 1 -type d -print -quit)"
+    if [[ -z "$source_root" || ! -f "$source_root/index.html" ]]; then
+      source_root="$extract"
+    fi
+    if [[ ! -f "$source_root/index.html" ]]; then
+      echo "error: $app@$tag web zip does not contain an index.html" >&2
+      exit 1
+    fi
+  elif [[ -n "$tarball" ]]; then
+    subdir="$(jq -r --arg app "$app" '.apps[$app].subdir // empty' "$VERSIONS")"
+    if [[ -z "$subdir" ]]; then
+      echo "error: versions.json has no subdir for $app" >&2
+      exit 1
+    fi
+
+    archive="$WORK/$app.tar.gz"
+    echo "==> $app: downloading $tag (source)"
+    if ! curl -fsSL --retry 3 --retry-delay 2 --connect-timeout 20 \
+      -o "$archive" "$tarball"; then
+      echo "error: could not download $tarball" >&2
+      exit 1
+    fi
+
+    tar -xzf "$archive" -C "$extract" --strip-components=1
+    source_root="$extract/$subdir"
+    if [[ ! -f "$source_root/index.html" ]]; then
+      echo "error: $app@$tag has no $subdir/index.html" >&2
+      exit 1
+    fi
+  else
+    echo "error: versions.json has no web_zip or tarball for $app" >&2
     exit 1
   fi
 

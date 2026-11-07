@@ -1,6 +1,6 @@
 # web-tools
 
-A small static site that republishes the browser (WebAssembly) builds of the Craft apps:
+A small static site that republishes the browser builds of the Craft apps, plus VibeOffice:
 
 | App | Path | Upstream |
 | --- | --- | --- |
@@ -19,6 +19,7 @@ A small static site that republishes the browser (WebAssembly) builds of the Cra
 | FigCraft | `/figcraft/` | [storytold/figcraft](https://github.com/storytold/figcraft) |
 | VectorCraft | `/vectorcraft/` | [storytold/vectorcraft](https://github.com/storytold/vectorcraft) |
 | EffectCraft | `/effectcraft/` | [storytold/effectcraft](https://github.com/storytold/effectcraft) |
+| VibeOffice | `/vibeoffice/` | [tcchen2026/VibeOffice](https://github.com/tcchen2026/VibeOffice) |
 
 The versions that get deployed are the ones recorded in [`versions.json`](versions.json). A
 scheduled workflow checks the upstream releases every Monday, commits the updated versions when
@@ -44,7 +45,8 @@ uses relative URLs, so the apps end up at `/web-tools/wordcraft/` and so on.
 1. **Check for new app releases** ([workflow](.github/workflows/check-versions.yml)) runs every
    Monday at 03:23 UTC (11:23 Asia/Shanghai), or on demand. It calls
    [`scripts/check-versions.sh`](scripts/check-versions.sh), which resolves each project's latest
-   `*-web-*.zip` release through the GitHub API.
+   `*-web-*.zip` release through the GitHub API. VibeOffice has no web zip, so its latest release
+   tag is pinned instead and its source archive is published.
 2. If a version differs from `versions.json`, the script rewrites the file with the new tag,
    release date, release URL and asset URL. The workflow commits it as
    `github-actions[bot]` and pushes to the current branch. That commit also counts as repository
@@ -54,7 +56,8 @@ uses relative URLs, so the apps end up at `/web-tools/wordcraft/` and so on.
    from the new commit.
 4. **Deploy to GitHub Pages** ([workflow](.github/workflows/deploy.yml)) checks out that commit and
    runs [`scripts/build-site.sh`](scripts/build-site.sh). The script downloads the exact releases
-   pinned in `versions.json`, unpacks each into `dist/<app>/`, copies the landing page, and writes
+   pinned in `versions.json` (VibeOffice from its source archive, publishing `public/`), unpacks
+   each into `dist/<app>/`, copies the landing page, and writes
    `dist/versions.json` (the pinned versions plus a `generated_at` deployment timestamp).
 5. The build is uploaded as a Pages artifact and deployed with `actions/deploy-pages`.
 
@@ -81,10 +84,10 @@ python3 -m http.server 8000 --directory dist
 # then open http://localhost:8000/
 ```
 
-Requires `curl`, `jq` and `unzip`. A build downloads roughly 60 MB of release assets. The check
-makes one GitHub API request per app (15); the workflow authenticates with its `GITHUB_TOKEN`, while a local
-run without `GH_TOKEN` uses the anonymous rate limit. `SOURCE_ORG=your-org` overrides the upstream
-owner.
+Requires `curl`, `jq`, `tar` and `unzip`. A build downloads a few hundred MB of release assets. The
+check makes one GitHub API request per app (16); the workflow authenticates with its
+`GITHUB_TOKEN`, while a local run without `GH_TOKEN` uses the anonymous rate limit.
+`SOURCE_ORG=your-org` overrides the upstream owner of the storytold apps.
 
 ## Adjusting the site
 
