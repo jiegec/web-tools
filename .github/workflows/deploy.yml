@@ -4,14 +4,11 @@ on:
   push:
     branches: [main, master]
     paths:
+      - "versions.json"
       - "index.html"
       - "favicon.svg"
-      - "scripts/**"
+      - "scripts/build-site.sh"
       - ".github/workflows/deploy.yml"
-  schedule:
-    # Every Monday at 03:23 UTC (11:23 in Asia/Shanghai). GitHub may delay it
-    # slightly at busy times, hence the odd minute.
-    - cron: "23 3 * * 1"
   workflow_dispatch:
 
 permissions:
@@ -32,12 +29,8 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v7
 
-      - name: Download the latest web builds
+      - name: Build site from the pinned versions
         run: bash scripts/build-site.sh dist
-        env:
-          # Reading public releases works with the workflow token, and avoids the
-          # unauthenticated API rate limit shared by runner IP addresses.
-          GH_TOKEN: ${{ github.token }}
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v5

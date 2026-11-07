@@ -1,16 +1,13 @@
 #!/usr/bin/env bash
 #
-# Assemble the web-tools site:
+# Assemble the web-tools site from the versions pinned in versions.json:
 #   <out>/index.html, <out>/favicon.svg, <out>/versions.json,
-#   and <out>/<app>/ with the latest web (WebAssembly) build of each Craft app.
+#   and <out>/<app>/ with that release's web (WebAssembly) build.
+#
+# versions.json is maintained by scripts/check-versions.sh.
 #
 # Usage:
 #   scripts/build-site.sh [output-dir]     (default: ./dist)
-#
-# Environment:
-#   GH_TOKEN     token for the GitHub API (optional; only needed when
-#                unauthenticated requests are rate-limited)
-#   SOURCE_ORG   GitHub owner of the apps (default: storytold)
 #
 # Requires: curl, jq, unzip.
 
@@ -18,9 +15,8 @@ set -euo pipefail
 
 ROOT="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd)"
 OUT="${1:-"$ROOT/dist"}"
-ORG="${SOURCE_ORG:-storytold}"
-API="https://api.github.com"
 APPS=(wordcraft photocraft deckcraft gridcraft)
+VERSIONS="$ROOT/versions.json"
 
 for tool in curl jq unzip; do
   if ! command -v "$tool" >/dev/null 2>&1; then
@@ -28,6 +24,11 @@ for tool in curl jq unzip; do
     exit 1
   fi
 done
+
+if [[ ! -f "$VERSIONS" ]]; then
+  echo "error: $VERSIONS is missing; run scripts/check-versions.sh first" >&2
+  exit 1
+fi
 
 mkdir -p -- "$OUT"
 OUT="$(cd -- "$OUT" && pwd)"
@@ -44,56 +45,19 @@ trap 'rm -rf -- "$WORK"' EXIT
 rm -rf -- "$OUT"
 mkdir -p -- "$OUT"
 
-api_headers=(
-  -H "Accept: application/vnd.github+json"
-  -H "X-GitHub-Api-Version: 2022-11-28"
-  -H "User-Agent: web-tools-pages"
-)
-if [[ -n "${GH_TOKEN:-}" ]]; then
-  api_headers+=(-H "Authorization: Bearer $GH_TOKEN")
-fi
-
-: > "$WORK/releases.tsv"
-
 for app in "${APPS[@]}"; do
-  echo "==> $app: resolving the latest release"
-
-  api_url="$API/repos/$ORG/$app/releases/latest"
-  response="$(curl -sSL --retry 3 --retry-delay 2 --connect-timeout 20 \
-    "${api_headers[@]}" -w '\n%{http_code}' "$api_url")" || {
-    echo "error: could not reach $api_url" >&2
+  tag="$(jq -er --arg app "$app" '.apps[$app].version' "$VERSIONS")" || {
+    echo "error: versions.json has no version for $app" >&2
     exit 1
   }
-  status="${response##*$'\n'}"
-  release="${response%$'\n'*}"
-
-  if [[ "$status" != "200" ]]; then
-    echo "error: $api_url returned HTTP $status" >&2
-    if [[ "$status" == "403" || "$status" == "429" ]]; then
-      echo "       (API rate limit; set GH_TOKEN, or check that the token is valid)" >&2
-    fi
-    exit 1
-  fi
-
-  tag="$(jq -er '.tag_name' <<<"$release")" || {
-    echo "error: $ORG/$app does not have a latest release" >&2
-    exit 1
-  }
-  released="$(jq -r '.published_at // ""' <<<"$release")"
-
-  asset_url="$(jq -r --arg prefix "${app}-web-" '
-    first(.assets[]?
-          | select(.name | startswith($prefix) and endswith(".zip"))
-          | .browser_download_url) // empty
-  ' <<<"$release")"
-
+  asset_url="$(jq -r --arg app "$app" '.apps[$app].web_zip // empty' "$VERSIONS")"
   if [[ -z "$asset_url" ]]; then
-    echo "error: $ORG/$app@$tag has no ${app}-web-*.zip asset" >&2
+    echo "error: versions.json has no web_zip for $app" >&2
     exit 1
   fi
 
   archive="$WORK/$app.zip"
-  echo "==> $app: downloading $(basename -- "$asset_url")"
+  echo "==> $app: downloading $tag"
   if ! curl -fsSL --retry 3 --retry-delay 2 --connect-timeout 20 \
     -o "$archive" "$asset_url"; then
     echo "error: could not download $asset_url" >&2
@@ -111,7 +75,7 @@ for app in "${APPS[@]}"; do
     source_root="$extract"
   fi
   if [[ ! -f "$source_root/index.html" ]]; then
-    echo "error: $ORG/$app@$tag web zip does not contain an index.html" >&2
+    echo "error: $app@$tag web zip does not contain an index.html" >&2
     exit 1
   fi
 
@@ -126,24 +90,15 @@ for app in "${APPS[@]}"; do
     cp -a -- "$OUT/$app/snippets" "$OUT/$app/app/snippets"
   fi
 
-  printf '%s\t%s\t%s\thttps://github.com/%s/%s/releases/tag/%s\n' \
-    "$app" "$tag" "$released" "$ORG" "$app" "$tag" >> "$WORK/releases.tsv"
-
-  echo "==> $app: $tag ($released)"
+  echo "==> $app: $tag"
 done
 
 cp -- "$ROOT/index.html" "$OUT/index.html"
 cp -- "$ROOT/favicon.svg" "$OUT/favicon.svg"
 touch -- "$OUT/.nojekyll"
 
-jq -Rn --arg generated_at "$(date -u +%Y-%m-%dT%H:%M:%SZ)" '
-  [inputs
-   | select(length > 0)
-   | split("\t")
-   | {key: .[0], value: {version: .[1], released: .[2], release_url: .[3]}}]
-  | from_entries
-  | {generated_at: $generated_at, apps: .}
-' < "$WORK/releases.tsv" > "$OUT/versions.json"
+jq --arg generated_at "$(date -u +%Y-%m-%dT%H:%M:%SZ)" \
+  '. + {generated_at: $generated_at}' "$VERSIONS" > "$OUT/versions.json"
 
 for app in "${APPS[@]}"; do
   if [[ ! -f "$OUT/$app/index.html" ]]; then

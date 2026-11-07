@@ -1,0 +1,29 @@
+{
+  "checked_at": "2026-11-07T15:31:05Z",
+  "apps": {
+    "wordcraft": {
+      "version": "v0.16.0",
+      "released": "2026-11-06T20:22:22Z",
+      "release_url": "https://github.com/storytold/wordcraft/releases/tag/v0.16.0",
+      "web_zip": "https://github.com/storytold/wordcraft/releases/download/v0.16.0/wordcraft-web-0.16.0.zip"
+    },
+    "photocraft": {
+      "version": "v0.21.0",
+      "released": "2026-11-06T20:22:03Z",
+      "release_url": "https://github.com/storytold/photocraft/releases/tag/v0.21.0",
+      "web_zip": "https://github.com/storytold/photocraft/releases/download/v0.21.0/photocraft-web-0.21.0.zip"
+    },
+    "deckcraft": {
+      "version": "v0.16.0",
+      "released": "2026-11-06T20:21:27Z",
+      "release_url": "https://github.com/storytold/deckcraft/releases/tag/v0.16.0",
+      "web_zip": "https://github.com/storytold/deckcraft/releases/download/v0.16.0/deckcraft-web-0.16.0.zip"
+    },
+    "gridcraft": {
+      "version": "v0.17.0",
+      "released": "2026-11-06T20:21:45Z",
+      "release_url": "https://github.com/storytold/gridcraft/releases/tag/v0.17.0",
+      "web_zip": "https://github.com/storytold/gridcraft/releases/download/v0.17.0/gridcraft-web-0.17.0.zip"
+    }
+  }
+}
