@@ -8,11 +8,26 @@ A small static site that republishes the browser (WebAssembly) builds of the Cra
 | PhotoCraft | `/photocraft/` | [storytold/photocraft](https://github.com/storytold/photocraft) |
 | DeckCraft | `/deckcraft/` | [storytold/deckcraft](https://github.com/storytold/deckcraft) |
 | GridCraft | `/gridcraft/` | [storytold/gridcraft](https://github.com/storytold/gridcraft) |
+| PdfCraft | `/pdfcraft/` | [storytold/pdfcraft](https://github.com/storytold/pdfcraft) |
+| LightCraft | `/lightcraft/` | [storytold/lightcraft](https://github.com/storytold/lightcraft) |
+| FilmCraft | `/filmcraft/` | [storytold/filmcraft](https://github.com/storytold/filmcraft) |
+| CADCraft | `/cadcraft/` | [storytold/cadcraft](https://github.com/storytold/cadcraft) |
+| SoundCraft | `/soundcraft/` | [storytold/soundcraft](https://github.com/storytold/soundcraft) |
+| MaterialCraft | `/materialcraft/` | [storytold/materialcraft](https://github.com/storytold/materialcraft) |
+| DesignCraft | `/designcraft/` | [storytold/designcraft](https://github.com/storytold/designcraft) |
+| TextureCraft | `/texturecraft/` | [storytold/texturecraft](https://github.com/storytold/texturecraft) |
+| FigCraft | `/figcraft/` | [storytold/figcraft](https://github.com/storytold/figcraft) |
+| VectorCraft | `/vectorcraft/` | [storytold/vectorcraft](https://github.com/storytold/vectorcraft) |
+| EffectCraft | `/effectcraft/` | [storytold/effectcraft](https://github.com/storytold/effectcraft) |
 
 The versions that get deployed are the ones recorded in [`versions.json`](versions.json). A
 scheduled workflow checks the upstream releases every Monday, commits the updated versions when
 something new appears, and triggers the Pages deployment from that commit. When nothing changed,
 the check leaves both the repository and the site alone.
+
+AniCraft and ArtCraft are not listed yet: AniCraft has no GitHub release (only the `v0.1.0` tag),
+and ArtCraft's releases contain no web build. They can join the list as soon as they publish a
+`*-web-*.zip` asset.
 
 ## One-time setup
 
@@ -67,7 +82,7 @@ python3 -m http.server 8000 --directory dist
 ```
 
 Requires `curl`, `jq` and `unzip`. A build downloads roughly 60 MB of release assets. The check
-makes four GitHub API requests; the workflow authenticates with its `GITHUB_TOKEN`, while a local
+makes one GitHub API request per app (15); the workflow authenticates with its `GITHUB_TOKEN`, while a local
 run without `GH_TOKEN` uses the anonymous rate limit. `SOURCE_ORG=your-org` overrides the upstream
 owner.
 

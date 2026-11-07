@@ -18,7 +18,11 @@ ROOT="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd)"
 ORG="${SOURCE_ORG:-storytold}"
 API="https://api.github.com"
 VERSIONS="$ROOT/versions.json"
-APPS=(wordcraft photocraft deckcraft gridcraft)
+APPS=(
+  wordcraft photocraft deckcraft gridcraft
+  pdfcraft lightcraft filmcraft cadcraft soundcraft materialcraft
+  designcraft texturecraft figcraft vectorcraft effectcraft
+)
 
 for tool in curl jq; do
   if ! command -v "$tool" >/dev/null 2>&1; then

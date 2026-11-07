@@ -15,7 +15,11 @@ set -euo pipefail
 
 ROOT="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd)"
 OUT="${1:-"$ROOT/dist"}"
-APPS=(wordcraft photocraft deckcraft gridcraft)
+APPS=(
+  wordcraft photocraft deckcraft gridcraft
+  pdfcraft lightcraft filmcraft cadcraft soundcraft materialcraft
+  designcraft texturecraft figcraft vectorcraft effectcraft
+)
 VERSIONS="$ROOT/versions.json"
 
 for tool in curl jq unzip; do

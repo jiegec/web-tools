@@ -1,5 +1,5 @@
 {
-  "checked_at": "2026-11-07T15:31:05Z",
+  "checked_at": "2026-11-07T15:37:37Z",
   "apps": {
     "wordcraft": {
       "version": "v0.16.0",
@@ -24,6 +24,72 @@
       "released": "2026-11-06T20:21:45Z",
       "release_url": "https://github.com/storytold/gridcraft/releases/tag/v0.17.0",
       "web_zip": "https://github.com/storytold/gridcraft/releases/download/v0.17.0/gridcraft-web-0.17.0.zip"
+    },
+    "pdfcraft": {
+      "version": "v0.19.0",
+      "released": "2026-11-06T20:21:58Z",
+      "release_url": "https://github.com/storytold/pdfcraft/releases/tag/v0.19.0",
+      "web_zip": "https://github.com/storytold/pdfcraft/releases/download/v0.19.0/pdfcraft-web-0.19.0.zip"
+    },
+    "lightcraft": {
+      "version": "v0.19.0",
+      "released": "2026-11-06T20:21:50Z",
+      "release_url": "https://github.com/storytold/lightcraft/releases/tag/v0.19.0",
+      "web_zip": "https://github.com/storytold/lightcraft/releases/download/v0.19.0/lightcraft-web-0.19.0.zip"
+    },
+    "filmcraft": {
+      "version": "v0.18.0",
+      "released": "2026-11-06T20:21:40Z",
+      "release_url": "https://github.com/storytold/filmcraft/releases/tag/v0.18.0",
+      "web_zip": "https://github.com/storytold/filmcraft/releases/download/v0.18.0/filmcraft-web-0.18.0.zip"
+    },
+    "cadcraft": {
+      "version": "v0.18.0",
+      "released": "2026-11-06T20:21:13Z",
+      "release_url": "https://github.com/storytold/cadcraft/releases/tag/v0.18.0",
+      "web_zip": "https://github.com/storytold/cadcraft/releases/download/v0.18.0/cadcraft-web-0.18.0.zip"
+    },
+    "soundcraft": {
+      "version": "v0.18.0",
+      "released": "2026-11-06T20:22:08Z",
+      "release_url": "https://github.com/storytold/soundcraft/releases/tag/v0.18.0",
+      "web_zip": "https://github.com/storytold/soundcraft/releases/download/v0.18.0/soundcraft-web-0.18.0.zip"
+    },
+    "materialcraft": {
+      "version": "v0.2.0",
+      "released": "2026-11-06T20:21:54Z",
+      "release_url": "https://github.com/storytold/materialcraft/releases/tag/v0.2.0",
+      "web_zip": "https://github.com/storytold/materialcraft/releases/download/v0.2.0/materialcraft-web-0.2.0.zip"
+    },
+    "designcraft": {
+      "version": "v0.18.0",
+      "released": "2026-11-06T20:21:31Z",
+      "release_url": "https://github.com/storytold/designcraft/releases/tag/v0.18.0",
+      "web_zip": "https://github.com/storytold/designcraft/releases/download/v0.18.0/designcraft-web-0.18.0.zip"
+    },
+    "texturecraft": {
+      "version": "v0.4.0",
+      "released": "2026-11-06T20:22:12Z",
+      "release_url": "https://github.com/storytold/texturecraft/releases/tag/v0.4.0",
+      "web_zip": "https://github.com/storytold/texturecraft/releases/download/v0.4.0/texturecraft-web-0.4.0.zip"
+    },
+    "figcraft": {
+      "version": "v0.16.0",
+      "released": "2026-11-06T20:21:35Z",
+      "release_url": "https://github.com/storytold/figcraft/releases/tag/v0.16.0",
+      "web_zip": "https://github.com/storytold/figcraft/releases/download/v0.16.0/figcraft-web-0.16.0.zip"
+    },
+    "vectorcraft": {
+      "version": "v0.22.0",
+      "released": "2026-11-06T20:22:17Z",
+      "release_url": "https://github.com/storytold/vectorcraft/releases/tag/v0.22.0",
+      "web_zip": "https://github.com/storytold/vectorcraft/releases/download/v0.22.0/vectorcraft-web-0.22.0.zip"
+    },
+    "effectcraft": {
+      "version": "v0.22.0",
+      "released": "2026-11-06T20:26:02Z",
+      "release_url": "https://github.com/storytold/effectcraft/releases/tag/v0.22.0",
+      "web_zip": "https://github.com/storytold/effectcraft/releases/download/v0.22.0/effectcraft-web-0.22.0.zip"
     }
   }
 }

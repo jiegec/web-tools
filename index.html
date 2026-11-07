@@ -46,7 +46,7 @@
   }
 
   .page {
-    width: min(100% - 2.5rem, 54rem);
+    width: min(100% - 2.5rem, 60rem);
     margin: 0 auto;
     padding: clamp(3rem, 9vw, 6rem) 0 2.5rem;
   }
@@ -78,7 +78,7 @@
 
   .apps {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
     gap: 0.875rem;
     margin: 2.75rem 0 0;
     padding: 0;
@@ -192,8 +192,9 @@
     <p class="kicker">Craft apps &middot; WebAssembly</p>
     <h1>Web Tools</h1>
     <p class="intro">
-      The latest WordCraft, PhotoCraft, DeckCraft and GridCraft, running entirely in your
-      browser. Nothing to install, and your documents never leave your device.
+      The latest Craft apps &mdash; documents, photos, video, audio, design and 3D &mdash;
+      running entirely in your browser. Nothing to install, and your files never leave your
+      device.
     </p>
   </header>
 
@@ -238,15 +239,122 @@
         </span>
       </a>
     </li>
+    <li>
+      <a class="app" href="./pdfcraft/" style="--accent:#dc2626">
+        <span class="mark" aria-hidden="true">Pd</span>
+        <span class="text">
+          <span class="name">PdfCraft</span>
+          <span class="desc">PDF reading and editing &mdash; view, annotate and save PDFs</span>
+          <span class="version" data-app="pdfcraft">latest</span>
+        </span>
+      </a>
+    </li>
+    <li>
+      <a class="app" href="./lightcraft/" style="--accent:#d97706">
+        <span class="mark" aria-hidden="true">L</span>
+        <span class="text">
+          <span class="name">LightCraft</span>
+          <span class="desc">Non-destructive photo editing &mdash; adjust and export images</span>
+          <span class="version" data-app="lightcraft">latest</span>
+        </span>
+      </a>
+    </li>
+    <li>
+      <a class="app" href="./filmcraft/" style="--accent:#7c3aed">
+        <span class="mark" aria-hidden="true">F</span>
+        <span class="text">
+          <span class="name">FilmCraft</span>
+          <span class="desc">Video editing &mdash; cut, grade and export footage</span>
+          <span class="version" data-app="filmcraft">latest</span>
+        </span>
+      </a>
+    </li>
+    <li>
+      <a class="app" href="./cadcraft/" style="--accent:#0891b2">
+        <span class="mark" aria-hidden="true">C</span>
+        <span class="text">
+          <span class="name">CADCraft</span>
+          <span class="desc">CAD &mdash; design, draft and annotate drawings</span>
+          <span class="version" data-app="cadcraft">latest</span>
+        </span>
+      </a>
+    </li>
+    <li>
+      <a class="app" href="./soundcraft/" style="--accent:#0d9488">
+        <span class="mark" aria-hidden="true">S</span>
+        <span class="text">
+          <span class="name">SoundCraft</span>
+          <span class="desc">Audio &mdash; record, edit and mix multitrack sessions</span>
+          <span class="version" data-app="soundcraft">latest</span>
+        </span>
+      </a>
+    </li>
+    <li>
+      <a class="app" href="./materialcraft/" style="--accent:#4f46e5">
+        <span class="mark" aria-hidden="true">M</span>
+        <span class="text">
+          <span class="name">MaterialCraft</span>
+          <span class="desc">Node-based material design for 3D scenes</span>
+          <span class="version" data-app="materialcraft">latest</span>
+        </span>
+      </a>
+    </li>
+    <li>
+      <a class="app" href="./designcraft/" style="--accent:#db2777">
+        <span class="mark" aria-hidden="true">Ds</span>
+        <span class="text">
+          <span class="name">DesignCraft</span>
+          <span class="desc">Page and layout design &mdash; posters, spreads and more</span>
+          <span class="version" data-app="designcraft">latest</span>
+        </span>
+      </a>
+    </li>
+    <li>
+      <a class="app" href="./texturecraft/" style="--accent:#65a30d">
+        <span class="mark" aria-hidden="true">T</span>
+        <span class="text">
+          <span class="name">TextureCraft</span>
+          <span class="desc">3D texture painting on models</span>
+          <span class="version" data-app="texturecraft">latest</span>
+        </span>
+      </a>
+    </li>
+    <li>
+      <a class="app" href="./figcraft/" style="--accent:#9333ea">
+        <span class="mark" aria-hidden="true">Fg</span>
+        <span class="text">
+          <span class="name">FigCraft</span>
+          <span class="desc">Interface design and prototyping</span>
+          <span class="version" data-app="figcraft">latest</span>
+        </span>
+      </a>
+    </li>
+    <li>
+      <a class="app" href="./vectorcraft/" style="--accent:#0284c7">
+        <span class="mark" aria-hidden="true">V</span>
+        <span class="text">
+          <span class="name">VectorCraft</span>
+          <span class="desc">Vector art &mdash; draw and edit scalable illustrations</span>
+          <span class="version" data-app="vectorcraft">latest</span>
+        </span>
+      </a>
+    </li>
+    <li>
+      <a class="app" href="./effectcraft/" style="--accent:#c026d3">
+        <span class="mark" aria-hidden="true">E</span>
+        <span class="text">
+          <span class="name">EffectCraft</span>
+          <span class="desc">Motion graphics and compositing</span>
+          <span class="version" data-app="effectcraft">latest</span>
+        </span>
+      </a>
+    </li>
   </ul>
 
   <footer>
     <p>
-      Built from the latest GitHub releases of
-      <a href="https://github.com/storytold/wordcraft">WordCraft</a>,
-      <a href="https://github.com/storytold/photocraft">PhotoCraft</a>,
-      <a href="https://github.com/storytold/deckcraft">DeckCraft</a> and
-      <a href="https://github.com/storytold/gridcraft">GridCraft</a>.
+      Built from the latest GitHub releases of the
+      <a href="https://github.com/storytold">Craft apps</a>.
       Last deployed <time id="deployed">&mdash;</time>.
     </p>
     <p class="fine">WebAssembly &middot; files stay in the browser</p>
