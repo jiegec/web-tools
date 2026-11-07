@@ -1,0 +1,60 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main, master]
+    paths:
+      - "index.html"
+      - "favicon.svg"
+      - "scripts/**"
+      - ".github/workflows/deploy.yml"
+  schedule:
+    # Every Monday at 03:23 UTC (11:23 in Asia/Shanghai). GitHub may delay it
+    # slightly at busy times, hence the odd minute.
+    - cron: "23 3 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    name: Build site
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+
+      - name: Download the latest web builds
+        run: bash scripts/build-site.sh dist
+        env:
+          # Reading public releases works with the workflow token, and avoids the
+          # unauthenticated API rate limit shared by runner IP addresses.
+          GH_TOKEN: ${{ github.token }}
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v5
+        with:
+          path: dist
+          # Keep .nojekyll: harmless with Actions-based Pages, and it makes the
+          # artifact correct if the site is ever served by the legacy Jekyll build.
+          include-hidden-files: true
+
+  deploy:
+    name: Deploy
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v5
