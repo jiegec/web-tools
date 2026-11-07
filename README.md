@@ -1,6 +1,6 @@
 # web-tools
 
-A small static site that republishes the browser builds of the Craft apps, plus VibeOffice:
+A small static site that republishes the browser builds of the Craft apps, VibeOffice and SolidCraft:
 
 | App | Path | Upstream |
 | --- | --- | --- |
@@ -12,6 +12,7 @@ A small static site that republishes the browser builds of the Craft apps, plus 
 | LightCraft | `/lightcraft/` | [storytold/lightcraft](https://github.com/storytold/lightcraft) |
 | FilmCraft | `/filmcraft/` | [storytold/filmcraft](https://github.com/storytold/filmcraft) |
 | CADCraft | `/cadcraft/` | [storytold/cadcraft](https://github.com/storytold/cadcraft) |
+| SolidCraft | `/solidcraft/` | [tangency-labs/solidcraft](https://github.com/tangency-labs/solidcraft) |
 | SoundCraft | `/soundcraft/` | [storytold/soundcraft](https://github.com/storytold/soundcraft) |
 | MaterialCraft | `/materialcraft/` | [storytold/materialcraft](https://github.com/storytold/materialcraft) |
 | DesignCraft | `/designcraft/` | [storytold/designcraft](https://github.com/storytold/designcraft) |
@@ -73,6 +74,24 @@ contains the fix ([storytold/photocraft#10017](https://github.com/storytold/phot
 The `.nojekyll` file is added to the output so the artifact stays correct even if the site is ever
 served by the legacy Jekyll build.
 
+## Licenses and attribution
+
+All published apps are licensed under the **Apache License 2.0**: the Craft apps, VibeOffice and
+SolidCraft. The deployment keeps each app's license material next to the app:
+
+- The release bundles from the Craft apps and SolidCraft already contain `LICENSE-APACHE`
+  (some also `LICENSE-MIT`), `NOTICE`, attribution files, font licenses and third-party notices;
+  `scripts/build-site.sh` copies the bundle contents unchanged.
+- VibeOffice keeps its `LICENSE` at the repository root, outside the published `public/`
+  directory, so the build copies that file into `dist/vibeoffice/` explicitly.
+- The landing page states the license and links to the upstream sources, and every app directory
+  serves its `LICENSE-APACHE`/`LICENSE` and `NOTICE` files, so recipients get a copy of the
+  license and the notices with the work. No app files are modified; the only build-time change is
+  the PhotoCraft compatibility copy described above, which adds missing snippet files without
+  editing upstream content.
+- No GPL or AGPL project is currently published, so there is no additional source-offer
+  obligation; if a copyleft app is added later, keep its license/notices and link its source.
+
 ## Preview locally
 
 ```sh
@@ -85,7 +104,7 @@ python3 -m http.server 8000 --directory dist
 ```
 
 Requires `curl`, `jq`, `tar` and `unzip`. A build downloads a few hundred MB of release assets. The
-check makes one GitHub API request per app (16); the workflow authenticates with its
+check makes one GitHub API request per app (17); the workflow authenticates with its
 `GITHUB_TOKEN`, while a local run without `GH_TOKEN` uses the anonymous rate limit.
 `SOURCE_ORG=your-org` overrides the upstream owner of the storytold apps.
 

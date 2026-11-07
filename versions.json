@@ -1,5 +1,5 @@
 {
-  "checked_at": "2026-11-07T15:43:26Z",
+  "checked_at": "2026-11-07T15:59:12Z",
   "apps": {
     "wordcraft": {
       "version": "v0.16.0",
@@ -48,6 +48,12 @@
       "released": "2026-11-06T20:21:13Z",
       "release_url": "https://github.com/storytold/cadcraft/releases/tag/v0.18.0",
       "web_zip": "https://github.com/storytold/cadcraft/releases/download/v0.18.0/cadcraft-web-0.18.0.zip"
+    },
+    "solidcraft": {
+      "version": "v0.30.1",
+      "released": "2026-11-02T17:21:52Z",
+      "release_url": "https://github.com/tangency-labs/solidcraft/releases/tag/v0.30.1",
+      "web_zip": "https://github.com/tangency-labs/solidcraft/releases/download/v0.30.1/solidcraft-web-0.30.1.zip"
     },
     "soundcraft": {
       "version": "v0.18.0",

@@ -18,7 +18,7 @@ ROOT="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd)"
 OUT="${1:-"$ROOT/dist"}"
 APPS=(
   wordcraft photocraft deckcraft gridcraft
-  pdfcraft lightcraft filmcraft cadcraft soundcraft materialcraft
+  pdfcraft lightcraft filmcraft cadcraft solidcraft soundcraft materialcraft
   designcraft texturecraft figcraft vectorcraft effectcraft
   vibeoffice
 )
@@ -111,6 +111,14 @@ for app in "${APPS[@]}"; do
 
   mkdir -p -- "$OUT/$app"
   cp -a -- "$source_root"/. "$OUT/$app"/
+
+  # A tar.gz source tree keeps LICENSE/NOTICE at its root, outside the
+  # published subdirectory. Carry those files into the site as well.
+  for f in "$extract"/LICENSE* "$extract"/NOTICE* "$extract"/COPYING* "$extract"/ATTRIBUTION*; do
+    [[ -f "$f" ]] || continue
+    name="$(basename -- "$f")"
+    [[ -e "$OUT/$app/$name" ]] || cp -- "$f" "$OUT/$app/$name"
+  done
 
   # PhotoCraft 0.17.0-0.21.0 ships the app's wasm-bindgen snippets at the site
   # root, but app/photocraft-web.js imports them relative to app/. Put a copy

@@ -24,7 +24,7 @@ API="https://api.github.com"
 VERSIONS="$ROOT/versions.json"
 APPS=(
   wordcraft photocraft deckcraft gridcraft
-  pdfcraft lightcraft filmcraft cadcraft soundcraft materialcraft
+  pdfcraft lightcraft filmcraft cadcraft solidcraft soundcraft materialcraft
   designcraft texturecraft figcraft vectorcraft effectcraft
   vibeoffice
 )
@@ -51,6 +51,7 @@ fi
 repo_for() {
   case "$1" in
     vibeoffice) echo "tcchen2026/VibeOffice" ;;
+    solidcraft) echo "tangency-labs/solidcraft" ;;
     *) echo "$ORG/$1" ;;
   esac
 }
