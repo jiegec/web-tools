@@ -51,6 +51,8 @@ trap 'rm -rf -- "$WORK"' EXIT
 rm -rf -- "$OUT"
 mkdir -p -- "$OUT"
 
+: > "$WORK/sizes.tsv"
+
 for app in "${APPS[@]}"; do
   tag="$(jq -er --arg app "$app" '.apps[$app].version' "$VERSIONS")" || {
     echo "error: versions.json has no version for $app" >&2
@@ -128,6 +130,16 @@ for app in "${APPS[@]}"; do
     cp -a -- "$OUT/$app/snippets" "$OUT/$app/app/snippets"
   fi
 
+  # Compressed payload size, shown next to each app on the landing page. For a
+  # web zip this is the release download; for a source tree it is a gzip of the
+  # published directory.
+  if [[ -n "$web_zip" ]]; then
+    size_bytes="$(wc -c < "$archive")"
+  else
+    size_bytes="$(tar -C "$source_root" -czf - . | wc -c)"
+  fi
+  printf '%s\t%s\n' "$app" "$size_bytes" >> "$WORK/sizes.tsv"
+
   echo "==> $app: $tag"
 done
 
@@ -135,8 +147,13 @@ cp -- "$ROOT/index.html" "$OUT/index.html"
 cp -- "$ROOT/favicon.svg" "$OUT/favicon.svg"
 touch -- "$OUT/.nojekyll"
 
-jq --arg generated_at "$(date -u +%Y-%m-%dT%H:%M:%SZ)" \
-  '. + {generated_at: $generated_at}' "$VERSIONS" > "$OUT/versions.json"
+jq -Rn '[inputs | split("\t") | {key: .[0], value: (.[1] | tonumber)}] | from_entries' \
+  < "$WORK/sizes.tsv" > "$WORK/sizes.json"
+
+jq --arg generated_at "$(date -u +%Y-%m-%dT%H:%M:%SZ)" --slurpfile sizes "$WORK/sizes.json" '
+  (. + {generated_at: $generated_at})
+  | .apps |= with_entries(.value.size_bytes = $sizes[0][.key])
+' "$VERSIONS" > "$OUT/versions.json"
 
 for app in "${APPS[@]}"; do
   if [[ ! -f "$OUT/$app/index.html" ]]; then

@@ -59,7 +59,8 @@ uses relative URLs, so the apps end up at `/web-tools/wordcraft/` and so on.
    runs [`scripts/build-site.sh`](scripts/build-site.sh). The script downloads the exact releases
    pinned in `versions.json` (VibeOffice from its source archive, publishing `public/`), unpacks
    each into `dist/<app>/`, copies the landing page, and writes
-   `dist/versions.json` (the pinned versions plus a `generated_at` deployment timestamp).
+   `dist/versions.json` (the pinned versions, a `generated_at` deployment timestamp, and a
+   compressed `size_bytes` for each app).
 5. The build is uploaded as a Pages artifact and deployed with `actions/deploy-pages`.
 
 The deployment workflow also runs on pushes that touch `versions.json`, `index.html`,
@@ -127,6 +128,9 @@ check makes one GitHub API request per app (17); the workflow authenticates with
 
 ## Notes
 
+- Each card shows an approximate **compressed download size**: the size of the release web zip,
+  or a gzip of VibeOffice's published `public/` tree. Fonts and other assets load on demand, so
+  the actual first load can be smaller than the number on the card.
 - GitHub Pages does not let you set custom cache headers, so the `_headers`/`.htaccess` files
   included in the release zips are inert here. Hashed asset names plus GitHub Pages' ETags still
   give reasonable caching.

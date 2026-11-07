@@ -205,11 +205,22 @@
     text-wrap: pretty;
   }
 
-  .version {
+  .meta {
+    display: flex;
+    align-items: baseline;
     margin-top: 0.375rem;
+  }
+
+  .version,
+  .size {
     color: var(--muted);
     font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
     font-size: 0.6875rem;
+  }
+
+  .size:not(:empty)::before {
+    content: "\00b7";
+    margin: 0 0.375rem;
   }
 
   footer {
@@ -259,7 +270,10 @@
         <span class="text">
           <span class="name">WordCraft</span>
           <span class="desc" data-i18n="desc_wordcraft">Word processing &mdash; open, edit and save .docx documents</span>
-          <span class="version" data-app="wordcraft">latest</span>
+          <span class="meta">
+            <span class="version" data-app="wordcraft">latest</span>
+            <span class="size" data-size-app="wordcraft"></span>
+          </span>
         </span>
       </a>
     </li>
@@ -269,7 +283,10 @@
         <span class="text">
           <span class="name">PhotoCraft</span>
           <span class="desc" data-i18n="desc_photocraft">Photo editing &mdash; adjust, retouch and export images</span>
-          <span class="version" data-app="photocraft">latest</span>
+          <span class="meta">
+            <span class="version" data-app="photocraft">latest</span>
+            <span class="size" data-size-app="photocraft"></span>
+          </span>
         </span>
       </a>
     </li>
@@ -279,7 +296,10 @@
         <span class="text">
           <span class="name">DeckCraft</span>
           <span class="desc" data-i18n="desc_deckcraft">Presentations &mdash; build and play .pptx slide decks</span>
-          <span class="version" data-app="deckcraft">latest</span>
+          <span class="meta">
+            <span class="version" data-app="deckcraft">latest</span>
+            <span class="size" data-size-app="deckcraft"></span>
+          </span>
         </span>
       </a>
     </li>
@@ -289,7 +309,10 @@
         <span class="text">
           <span class="name">GridCraft</span>
           <span class="desc" data-i18n="desc_gridcraft">Spreadsheets &mdash; edit .xlsx workbooks and formulas</span>
-          <span class="version" data-app="gridcraft">latest</span>
+          <span class="meta">
+            <span class="version" data-app="gridcraft">latest</span>
+            <span class="size" data-size-app="gridcraft"></span>
+          </span>
         </span>
       </a>
     </li>
@@ -299,7 +322,10 @@
         <span class="text">
           <span class="name">PdfCraft</span>
           <span class="desc" data-i18n="desc_pdfcraft">PDF reading and editing &mdash; view, annotate and save PDFs</span>
-          <span class="version" data-app="pdfcraft">latest</span>
+          <span class="meta">
+            <span class="version" data-app="pdfcraft">latest</span>
+            <span class="size" data-size-app="pdfcraft"></span>
+          </span>
         </span>
       </a>
     </li>
@@ -309,7 +335,10 @@
         <span class="text">
           <span class="name">LightCraft</span>
           <span class="desc" data-i18n="desc_lightcraft">Non-destructive photo editing &mdash; adjust and export images</span>
-          <span class="version" data-app="lightcraft">latest</span>
+          <span class="meta">
+            <span class="version" data-app="lightcraft">latest</span>
+            <span class="size" data-size-app="lightcraft"></span>
+          </span>
         </span>
       </a>
     </li>
@@ -319,7 +348,10 @@
         <span class="text">
           <span class="name">FilmCraft</span>
           <span class="desc" data-i18n="desc_filmcraft">Video editing &mdash; cut, grade and export footage</span>
-          <span class="version" data-app="filmcraft">latest</span>
+          <span class="meta">
+            <span class="version" data-app="filmcraft">latest</span>
+            <span class="size" data-size-app="filmcraft"></span>
+          </span>
         </span>
       </a>
     </li>
@@ -329,7 +361,10 @@
         <span class="text">
           <span class="name">CADCraft</span>
           <span class="desc" data-i18n="desc_cadcraft">CAD &mdash; design, draft and annotate drawings</span>
-          <span class="version" data-app="cadcraft">latest</span>
+          <span class="meta">
+            <span class="version" data-app="cadcraft">latest</span>
+            <span class="size" data-size-app="cadcraft"></span>
+          </span>
         </span>
       </a>
     </li>
@@ -339,7 +374,10 @@
         <span class="text">
           <span class="name">SolidCraft</span>
           <span class="desc" data-i18n="desc_solidcraft">Parametric 3D CAD &mdash; model and export solid parts</span>
-          <span class="version" data-app="solidcraft">latest</span>
+          <span class="meta">
+            <span class="version" data-app="solidcraft">latest</span>
+            <span class="size" data-size-app="solidcraft"></span>
+          </span>
         </span>
       </a>
     </li>
@@ -349,7 +387,10 @@
         <span class="text">
           <span class="name">SoundCraft</span>
           <span class="desc" data-i18n="desc_soundcraft">Audio &mdash; record, edit and mix multitrack sessions</span>
-          <span class="version" data-app="soundcraft">latest</span>
+          <span class="meta">
+            <span class="version" data-app="soundcraft">latest</span>
+            <span class="size" data-size-app="soundcraft"></span>
+          </span>
         </span>
       </a>
     </li>
@@ -359,7 +400,10 @@
         <span class="text">
           <span class="name">MaterialCraft</span>
           <span class="desc" data-i18n="desc_materialcraft">Node-based material design for 3D scenes</span>
-          <span class="version" data-app="materialcraft">latest</span>
+          <span class="meta">
+            <span class="version" data-app="materialcraft">latest</span>
+            <span class="size" data-size-app="materialcraft"></span>
+          </span>
         </span>
       </a>
     </li>
@@ -369,7 +413,10 @@
         <span class="text">
           <span class="name">DesignCraft</span>
           <span class="desc" data-i18n="desc_designcraft">Page and layout design &mdash; posters, spreads and more</span>
-          <span class="version" data-app="designcraft">latest</span>
+          <span class="meta">
+            <span class="version" data-app="designcraft">latest</span>
+            <span class="size" data-size-app="designcraft"></span>
+          </span>
         </span>
       </a>
     </li>
@@ -379,7 +426,10 @@
         <span class="text">
           <span class="name">TextureCraft</span>
           <span class="desc" data-i18n="desc_texturecraft">3D texture painting on models</span>
-          <span class="version" data-app="texturecraft">latest</span>
+          <span class="meta">
+            <span class="version" data-app="texturecraft">latest</span>
+            <span class="size" data-size-app="texturecraft"></span>
+          </span>
         </span>
       </a>
     </li>
@@ -389,7 +439,10 @@
         <span class="text">
           <span class="name">FigCraft</span>
           <span class="desc" data-i18n="desc_figcraft">Interface design and prototyping</span>
-          <span class="version" data-app="figcraft">latest</span>
+          <span class="meta">
+            <span class="version" data-app="figcraft">latest</span>
+            <span class="size" data-size-app="figcraft"></span>
+          </span>
         </span>
       </a>
     </li>
@@ -399,7 +452,10 @@
         <span class="text">
           <span class="name">VectorCraft</span>
           <span class="desc" data-i18n="desc_vectorcraft">Vector art &mdash; draw and edit scalable illustrations</span>
-          <span class="version" data-app="vectorcraft">latest</span>
+          <span class="meta">
+            <span class="version" data-app="vectorcraft">latest</span>
+            <span class="size" data-size-app="vectorcraft"></span>
+          </span>
         </span>
       </a>
     </li>
@@ -409,7 +465,10 @@
         <span class="text">
           <span class="name">EffectCraft</span>
           <span class="desc" data-i18n="desc_effectcraft">Motion graphics and compositing</span>
-          <span class="version" data-app="effectcraft">latest</span>
+          <span class="meta">
+            <span class="version" data-app="effectcraft">latest</span>
+            <span class="size" data-size-app="effectcraft"></span>
+          </span>
         </span>
       </a>
     </li>
@@ -419,7 +478,10 @@
         <span class="text">
           <span class="name">VibeOffice</span>
           <span class="desc" data-i18n="desc_vibeoffice">Office suite &mdash; documents, spreadsheets and presentations</span>
-          <span class="version" data-app="vibeoffice">latest</span>
+          <span class="meta">
+            <span class="version" data-app="vibeoffice">latest</span>
+            <span class="size" data-size-app="vibeoffice"></span>
+          </span>
         </span>
       </a>
     </li>
@@ -432,6 +494,10 @@
       Last deployed <time id="deployed">&mdash;</time>.
     </p>
     <p class="fine" data-i18n="footerLocal">In the browser &middot; files stay on your device</p>
+    <p class="fine" data-i18n="footerSizes">
+      Sizes are compressed app bundles; the first load may be smaller when assets are fetched
+      on demand.
+    </p>
     <p class="fine" data-i18n-html="footerLicenses">
       Every app is licensed under the
       <a href="https://www.apache.org/licenses/LICENSE-2.0">Apache License 2.0</a>; each app
@@ -462,6 +528,7 @@
         latest: "latest",
         languageLabel: "Language",
         releasedOn: "Released {date}",
+        sizeLabel: "Compressed download size",
         desc_wordcraft: "Word processing — open, edit and save .docx documents",
         desc_photocraft: "Photo editing — adjust, retouch and export images",
         desc_deckcraft: "Presentations — build and play .pptx slide decks",
@@ -481,6 +548,7 @@
         desc_vibeoffice: "Office suite — documents, spreadsheets and presentations",
         footerBuilt: 'Built from the latest GitHub releases of the <a href="https://github.com/storytold">Craft apps</a>. Last deployed <time id="deployed">—</time>.',
         footerLocal: "In the browser · files stay on your device",
+        footerSizes: "Sizes are compressed app bundles; the first load may be smaller when assets are fetched on demand.",
         footerLicenses: 'Every app is licensed under the <a href="https://www.apache.org/licenses/LICENSE-2.0">Apache License 2.0</a>; each app directory ships its LICENSE and the NOTICE/attribution files it provides. Sources: <a href="https://github.com/storytold">Craft apps</a>, <a href="https://github.com/tcchen2026/VibeOffice">VibeOffice</a>, <a href="https://github.com/tangency-labs/solidcraft">SolidCraft</a>.'
       },
       zh: {
@@ -492,6 +560,7 @@
         latest: "最新",
         languageLabel: "语言",
         releasedOn: "发布于 {date}",
+        sizeLabel: "压缩下载大小",
         desc_wordcraft: "文字处理 — 打开、编辑并保存 .docx 文档",
         desc_photocraft: "照片编辑 — 调整、修饰并导出图片",
         desc_deckcraft: "演示文稿 — 制作并播放 .pptx 幻灯片",
@@ -511,6 +580,7 @@
         desc_vibeoffice: "办公套件 — 文档、电子表格和演示文稿",
         footerBuilt: '基于 <a href="https://github.com/storytold">Craft 应用</a> 在 GitHub 上的最新 release 构建。最近部署于 <time id="deployed">—</time>。',
         footerLocal: "在浏览器中运行 · 文件留在你的设备上",
+        footerSizes: "大小是压缩后的应用包；部分资源按需加载，实际传输可能更小。",
         footerLicenses: '所有应用均采用 <a href="https://www.apache.org/licenses/LICENSE-2.0">Apache License 2.0</a>；每个应用目录都附带其 LICENSE 以及 NOTICE/署名文件。来源：<a href="https://github.com/storytold">Craft 应用</a>、<a href="https://github.com/tcchen2026/VibeOffice">VibeOffice</a>、<a href="https://github.com/tangency-labs/solidcraft">SolidCraft</a>。'
       }
     };
@@ -547,6 +617,11 @@
       return "en";
     }
 
+    function formatSize(bytes) {
+      var mb = bytes / (1024 * 1024);
+      return "~" + (mb >= 10 ? Math.round(mb) : mb.toFixed(1)) + " MB";
+    }
+
     function formatDate(value) {
       var date = new Date(value);
       if (isNaN(date)) return "";
@@ -565,6 +640,21 @@
           if (released) node.title = t("releasedOn").replace("{date}", released);
         } else {
           node.removeAttribute("title");
+        }
+      }
+
+      var sizeNodes = document.querySelectorAll("[data-size-app]");
+      for (var n = 0; n < sizeNodes.length; n++) {
+        var sizeInfo = appData && appData.apps
+          ? appData.apps[sizeNodes[n].getAttribute("data-size-app")]
+          : null;
+        if (sizeInfo && sizeInfo.size_bytes) {
+          var sizeLabel = formatSize(sizeInfo.size_bytes);
+          sizeNodes[n].textContent = sizeLabel;
+          sizeNodes[n].title = t("sizeLabel") + ": " + sizeLabel;
+        } else {
+          sizeNodes[n].textContent = "";
+          sizeNodes[n].removeAttribute("title");
         }
       }
 
