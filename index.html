@@ -51,8 +51,56 @@
     padding: clamp(3rem, 9vw, 6rem) 0 2.5rem;
   }
 
+  .topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .lang {
+    display: inline-flex;
+    flex: none;
+    padding: 0.1875rem;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: var(--card);
+  }
+
+  .lang button {
+    appearance: none;
+    border: 0;
+    padding: 0.25rem 0.625rem;
+    border-radius: 999px;
+    background: transparent;
+    color: var(--muted);
+    font: inherit;
+    font-size: 0.75rem;
+    font-weight: 600;
+    line-height: 1.4;
+    cursor: pointer;
+  }
+
+  .lang button:hover { color: var(--fg); }
+
+  .lang button[aria-pressed="true"] {
+    background: var(--fg);
+    color: var(--bg);
+  }
+
+  .lang button:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+
+  :lang(zh) .kicker {
+    text-transform: none;
+    letter-spacing: 0.08em;
+  }
+
   .kicker {
-    margin: 0 0 0.75rem;
+    margin: 0;
     color: var(--accent);
     font-size: 0.75rem;
     font-weight: 650;
@@ -189,9 +237,15 @@
 <body>
 <main class="page">
   <header>
-    <p class="kicker">Craft apps &middot; Web</p>
-    <h1>Web Tools</h1>
-    <p class="intro">
+    <div class="topbar">
+      <p class="kicker" data-i18n="kicker">Craft apps &middot; Web</p>
+      <div class="lang" role="group" aria-label="Language" data-i18n-aria-label="languageLabel">
+        <button type="button" data-lang="en" aria-pressed="true" lang="en">EN</button>
+        <button type="button" data-lang="zh" aria-pressed="false" lang="zh-CN">中文</button>
+      </div>
+    </div>
+    <h1 data-i18n="title">Web Tools</h1>
+    <p class="intro" data-i18n="intro">
       The latest Craft apps &mdash; documents, photos, video, audio, design and 3D &mdash;
       running entirely in your browser. Nothing to install, and your files never leave your
       device.
@@ -204,7 +258,7 @@
         <span class="mark" aria-hidden="true">W</span>
         <span class="text">
           <span class="name">WordCraft</span>
-          <span class="desc">Word processing &mdash; open, edit and save .docx documents</span>
+          <span class="desc" data-i18n="desc_wordcraft">Word processing &mdash; open, edit and save .docx documents</span>
           <span class="version" data-app="wordcraft">latest</span>
         </span>
       </a>
@@ -214,7 +268,7 @@
         <span class="mark" aria-hidden="true">P</span>
         <span class="text">
           <span class="name">PhotoCraft</span>
-          <span class="desc">Photo editing &mdash; adjust, retouch and export images</span>
+          <span class="desc" data-i18n="desc_photocraft">Photo editing &mdash; adjust, retouch and export images</span>
           <span class="version" data-app="photocraft">latest</span>
         </span>
       </a>
@@ -224,7 +278,7 @@
         <span class="mark" aria-hidden="true">D</span>
         <span class="text">
           <span class="name">DeckCraft</span>
-          <span class="desc">Presentations &mdash; build and play .pptx slide decks</span>
+          <span class="desc" data-i18n="desc_deckcraft">Presentations &mdash; build and play .pptx slide decks</span>
           <span class="version" data-app="deckcraft">latest</span>
         </span>
       </a>
@@ -234,7 +288,7 @@
         <span class="mark" aria-hidden="true">G</span>
         <span class="text">
           <span class="name">GridCraft</span>
-          <span class="desc">Spreadsheets &mdash; edit .xlsx workbooks and formulas</span>
+          <span class="desc" data-i18n="desc_gridcraft">Spreadsheets &mdash; edit .xlsx workbooks and formulas</span>
           <span class="version" data-app="gridcraft">latest</span>
         </span>
       </a>
@@ -244,7 +298,7 @@
         <span class="mark" aria-hidden="true">Pd</span>
         <span class="text">
           <span class="name">PdfCraft</span>
-          <span class="desc">PDF reading and editing &mdash; view, annotate and save PDFs</span>
+          <span class="desc" data-i18n="desc_pdfcraft">PDF reading and editing &mdash; view, annotate and save PDFs</span>
           <span class="version" data-app="pdfcraft">latest</span>
         </span>
       </a>
@@ -254,7 +308,7 @@
         <span class="mark" aria-hidden="true">L</span>
         <span class="text">
           <span class="name">LightCraft</span>
-          <span class="desc">Non-destructive photo editing &mdash; adjust and export images</span>
+          <span class="desc" data-i18n="desc_lightcraft">Non-destructive photo editing &mdash; adjust and export images</span>
           <span class="version" data-app="lightcraft">latest</span>
         </span>
       </a>
@@ -264,7 +318,7 @@
         <span class="mark" aria-hidden="true">F</span>
         <span class="text">
           <span class="name">FilmCraft</span>
-          <span class="desc">Video editing &mdash; cut, grade and export footage</span>
+          <span class="desc" data-i18n="desc_filmcraft">Video editing &mdash; cut, grade and export footage</span>
           <span class="version" data-app="filmcraft">latest</span>
         </span>
       </a>
@@ -274,7 +328,7 @@
         <span class="mark" aria-hidden="true">C</span>
         <span class="text">
           <span class="name">CADCraft</span>
-          <span class="desc">CAD &mdash; design, draft and annotate drawings</span>
+          <span class="desc" data-i18n="desc_cadcraft">CAD &mdash; design, draft and annotate drawings</span>
           <span class="version" data-app="cadcraft">latest</span>
         </span>
       </a>
@@ -284,7 +338,7 @@
         <span class="mark" aria-hidden="true">SC</span>
         <span class="text">
           <span class="name">SolidCraft</span>
-          <span class="desc">Parametric 3D CAD &mdash; model and export solid parts</span>
+          <span class="desc" data-i18n="desc_solidcraft">Parametric 3D CAD &mdash; model and export solid parts</span>
           <span class="version" data-app="solidcraft">latest</span>
         </span>
       </a>
@@ -294,7 +348,7 @@
         <span class="mark" aria-hidden="true">S</span>
         <span class="text">
           <span class="name">SoundCraft</span>
-          <span class="desc">Audio &mdash; record, edit and mix multitrack sessions</span>
+          <span class="desc" data-i18n="desc_soundcraft">Audio &mdash; record, edit and mix multitrack sessions</span>
           <span class="version" data-app="soundcraft">latest</span>
         </span>
       </a>
@@ -304,7 +358,7 @@
         <span class="mark" aria-hidden="true">M</span>
         <span class="text">
           <span class="name">MaterialCraft</span>
-          <span class="desc">Node-based material design for 3D scenes</span>
+          <span class="desc" data-i18n="desc_materialcraft">Node-based material design for 3D scenes</span>
           <span class="version" data-app="materialcraft">latest</span>
         </span>
       </a>
@@ -314,7 +368,7 @@
         <span class="mark" aria-hidden="true">Ds</span>
         <span class="text">
           <span class="name">DesignCraft</span>
-          <span class="desc">Page and layout design &mdash; posters, spreads and more</span>
+          <span class="desc" data-i18n="desc_designcraft">Page and layout design &mdash; posters, spreads and more</span>
           <span class="version" data-app="designcraft">latest</span>
         </span>
       </a>
@@ -324,7 +378,7 @@
         <span class="mark" aria-hidden="true">T</span>
         <span class="text">
           <span class="name">TextureCraft</span>
-          <span class="desc">3D texture painting on models</span>
+          <span class="desc" data-i18n="desc_texturecraft">3D texture painting on models</span>
           <span class="version" data-app="texturecraft">latest</span>
         </span>
       </a>
@@ -334,7 +388,7 @@
         <span class="mark" aria-hidden="true">Fg</span>
         <span class="text">
           <span class="name">FigCraft</span>
-          <span class="desc">Interface design and prototyping</span>
+          <span class="desc" data-i18n="desc_figcraft">Interface design and prototyping</span>
           <span class="version" data-app="figcraft">latest</span>
         </span>
       </a>
@@ -344,7 +398,7 @@
         <span class="mark" aria-hidden="true">V</span>
         <span class="text">
           <span class="name">VectorCraft</span>
-          <span class="desc">Vector art &mdash; draw and edit scalable illustrations</span>
+          <span class="desc" data-i18n="desc_vectorcraft">Vector art &mdash; draw and edit scalable illustrations</span>
           <span class="version" data-app="vectorcraft">latest</span>
         </span>
       </a>
@@ -354,7 +408,7 @@
         <span class="mark" aria-hidden="true">E</span>
         <span class="text">
           <span class="name">EffectCraft</span>
-          <span class="desc">Motion graphics and compositing</span>
+          <span class="desc" data-i18n="desc_effectcraft">Motion graphics and compositing</span>
           <span class="version" data-app="effectcraft">latest</span>
         </span>
       </a>
@@ -364,7 +418,7 @@
         <span class="mark" aria-hidden="true">VO</span>
         <span class="text">
           <span class="name">VibeOffice</span>
-          <span class="desc">Office suite &mdash; documents, spreadsheets and presentations</span>
+          <span class="desc" data-i18n="desc_vibeoffice">Office suite &mdash; documents, spreadsheets and presentations</span>
           <span class="version" data-app="vibeoffice">latest</span>
         </span>
       </a>
@@ -372,15 +426,16 @@
   </ul>
 
   <footer>
-    <p>
+    <p data-i18n-html="footerBuilt">
       Built from the latest GitHub releases of the
       <a href="https://github.com/storytold">Craft apps</a>.
       Last deployed <time id="deployed">&mdash;</time>.
     </p>
-    <p class="fine">In the browser &middot; files stay on your device</p>
-    <p class="fine">
-      Every app is licensed under the Apache License 2.0; each app directory ships its LICENSE
-      and the NOTICE/attribution files it provides. Sources:
+    <p class="fine" data-i18n="footerLocal">In the browser &middot; files stay on your device</p>
+    <p class="fine" data-i18n-html="footerLicenses">
+      Every app is licensed under the
+      <a href="https://www.apache.org/licenses/LICENSE-2.0">Apache License 2.0</a>; each app
+      directory ships its LICENSE and the NOTICE/attribution files it provides. Sources:
       <a href="https://github.com/storytold">Craft apps</a>,
       <a href="https://github.com/tcchen2026/VibeOffice">VibeOffice</a>,
       <a href="https://github.com/tangency-labs/solidcraft">SolidCraft</a>.
@@ -390,7 +445,193 @@
 
 <script>
   (function () {
-    var deployed = document.getElementById("deployed");
+    "use strict";
+
+    var STORAGE_KEY = "web-tools-lang";
+    var localeFor = { en: "en", zh: "zh-CN" };
+    var currentLang = "en";
+    var appData = null;
+
+    var messages = {
+      en: {
+        metaTitle: "Web Tools — Craft apps in your browser",
+        metaDescription: "The latest browser builds of the Craft apps, VibeOffice and SolidCraft, rebuilt from their GitHub releases.",
+        kicker: "Craft apps · Web",
+        title: "Web Tools",
+        intro: "The latest Craft apps — documents, photos, video, audio, design and 3D — running entirely in your browser. Nothing to install, and your files never leave your device.",
+        latest: "latest",
+        languageLabel: "Language",
+        releasedOn: "Released {date}",
+        desc_wordcraft: "Word processing — open, edit and save .docx documents",
+        desc_photocraft: "Photo editing — adjust, retouch and export images",
+        desc_deckcraft: "Presentations — build and play .pptx slide decks",
+        desc_gridcraft: "Spreadsheets — edit .xlsx workbooks and formulas",
+        desc_pdfcraft: "PDF reading and editing — view, annotate and save PDFs",
+        desc_lightcraft: "Non-destructive photo editing — adjust and export images",
+        desc_filmcraft: "Video editing — cut, grade and export footage",
+        desc_cadcraft: "CAD — design, draft and annotate drawings",
+        desc_solidcraft: "Parametric 3D CAD — model and export solid parts",
+        desc_soundcraft: "Audio — record, edit and mix multitrack sessions",
+        desc_materialcraft: "Node-based material design for 3D scenes",
+        desc_designcraft: "Page and layout design — posters, spreads and more",
+        desc_texturecraft: "3D texture painting on models",
+        desc_figcraft: "Interface design and prototyping",
+        desc_vectorcraft: "Vector art — draw and edit scalable illustrations",
+        desc_effectcraft: "Motion graphics and compositing",
+        desc_vibeoffice: "Office suite — documents, spreadsheets and presentations",
+        footerBuilt: 'Built from the latest GitHub releases of the <a href="https://github.com/storytold">Craft apps</a>. Last deployed <time id="deployed">—</time>.',
+        footerLocal: "In the browser · files stay on your device",
+        footerLicenses: 'Every app is licensed under the <a href="https://www.apache.org/licenses/LICENSE-2.0">Apache License 2.0</a>; each app directory ships its LICENSE and the NOTICE/attribution files it provides. Sources: <a href="https://github.com/storytold">Craft apps</a>, <a href="https://github.com/tcchen2026/VibeOffice">VibeOffice</a>, <a href="https://github.com/tangency-labs/solidcraft">SolidCraft</a>.'
+      },
+      zh: {
+        metaTitle: "网页工具 — 浏览器里的 Craft 应用",
+        metaDescription: "Craft 应用、VibeOffice 和 SolidCraft 的最新浏览器版本，直接来自它们的 GitHub release。",
+        kicker: "Craft 应用 · 网页",
+        title: "网页工具",
+        intro: "最新的 Craft 应用——文档、照片、视频、音频、设计与 3D——全部在浏览器里运行。无需安装，文件不会离开你的设备。",
+        latest: "最新",
+        languageLabel: "语言",
+        releasedOn: "发布于 {date}",
+        desc_wordcraft: "文字处理 — 打开、编辑并保存 .docx 文档",
+        desc_photocraft: "照片编辑 — 调整、修饰并导出图片",
+        desc_deckcraft: "演示文稿 — 制作并播放 .pptx 幻灯片",
+        desc_gridcraft: "电子表格 — 编辑 .xlsx 工作簿和公式",
+        desc_pdfcraft: "PDF 阅读与编辑 — 查看、批注并保存 PDF",
+        desc_lightcraft: "非破坏性照片编辑 — 调整并导出图片",
+        desc_filmcraft: "视频剪辑 — 剪切、调色并导出素材",
+        desc_cadcraft: "CAD — 设计、绘图并标注图纸",
+        desc_solidcraft: "参数化 3D CAD — 建模并导出实体零件",
+        desc_soundcraft: "音频 — 录制、编辑并混合多轨会话",
+        desc_materialcraft: "节点式材质设计，用于 3D 场景",
+        desc_designcraft: "页面与版式设计 — 海报、跨页等",
+        desc_texturecraft: "在模型上进行 3D 纹理绘制",
+        desc_figcraft: "界面设计与原型制作",
+        desc_vectorcraft: "矢量艺术 — 绘制并编辑可缩放插画",
+        desc_effectcraft: "动态图形与合成",
+        desc_vibeoffice: "办公套件 — 文档、电子表格和演示文稿",
+        footerBuilt: '基于 <a href="https://github.com/storytold">Craft 应用</a> 在 GitHub 上的最新 release 构建。最近部署于 <time id="deployed">—</time>。',
+        footerLocal: "在浏览器中运行 · 文件留在你的设备上",
+        footerLicenses: '所有应用均采用 <a href="https://www.apache.org/licenses/LICENSE-2.0">Apache License 2.0</a>；每个应用目录都附带其 LICENSE 以及 NOTICE/署名文件。来源：<a href="https://github.com/storytold">Craft 应用</a>、<a href="https://github.com/tcchen2026/VibeOffice">VibeOffice</a>、<a href="https://github.com/tangency-labs/solidcraft">SolidCraft</a>。'
+      }
+    };
+
+    function t(key) {
+      var dict = messages[currentLang] || messages.en;
+      if (dict[key] != null) return dict[key];
+      return messages.en[key] != null ? messages.en[key] : key;
+    }
+
+    function detectLanguage() {
+      try {
+        var query = new URLSearchParams(location.search).get("lang");
+        if (query) {
+          query = query.toLowerCase();
+          if (query.indexOf("zh") === 0) return "zh";
+          if (query.indexOf("en") === 0) return "en";
+        }
+      } catch (e) { /* ignore */ }
+
+      try {
+        var saved = localStorage.getItem(STORAGE_KEY);
+        if (saved === "en" || saved === "zh") return saved;
+      } catch (e) { /* storage may be unavailable */ }
+
+      var languages = navigator.languages && navigator.languages.length
+        ? navigator.languages
+        : [navigator.language || "en"];
+      for (var i = 0; i < languages.length; i++) {
+        var tag = String(languages[i]).toLowerCase();
+        if (tag.indexOf("zh") === 0) return "zh";
+        if (tag.indexOf("en") === 0) return "en";
+      }
+      return "en";
+    }
+
+    function formatDate(value) {
+      var date = new Date(value);
+      if (isNaN(date)) return "";
+      return date.toLocaleDateString(localeFor[currentLang], { dateStyle: "medium" });
+    }
+
+    function render() {
+      var latest = t("latest");
+      var nodes = document.querySelectorAll("[data-app]");
+      for (var i = 0; i < nodes.length; i++) {
+        var node = nodes[i];
+        var info = appData && appData.apps ? appData.apps[node.getAttribute("data-app")] : null;
+        node.textContent = info && info.version ? info.version : latest;
+        if (info && info.released) {
+          var released = formatDate(info.released);
+          if (released) node.title = t("releasedOn").replace("{date}", released);
+        } else {
+          node.removeAttribute("title");
+        }
+      }
+
+      var deployed = document.getElementById("deployed");
+      if (deployed && appData && appData.generated_at) {
+        var deployedDate = formatDate(appData.generated_at);
+        if (deployedDate) {
+          deployed.textContent = deployedDate;
+          deployed.setAttribute("datetime", appData.generated_at);
+        }
+      }
+    }
+
+    function apply(lang, persist) {
+      currentLang = lang === "zh" ? "zh" : "en";
+      var locale = localeFor[currentLang];
+      document.documentElement.lang = locale;
+      document.title = t("metaTitle");
+
+      var meta = document.querySelector('meta[name="description"]');
+      if (meta) meta.setAttribute("content", t("metaDescription"));
+
+      var nodes = document.querySelectorAll("[data-i18n]");
+      for (var i = 0; i < nodes.length; i++) {
+        nodes[i].textContent = t(nodes[i].getAttribute("data-i18n"));
+      }
+
+      nodes = document.querySelectorAll("[data-i18n-html]");
+      for (var j = 0; j < nodes.length; j++) {
+        nodes[j].innerHTML = t(nodes[j].getAttribute("data-i18n-html"));
+      }
+
+      nodes = document.querySelectorAll("[data-i18n-aria-label]");
+      for (var k = 0; k < nodes.length; k++) {
+        nodes[k].setAttribute("aria-label", t(nodes[k].getAttribute("data-i18n-aria-label")));
+      }
+
+      nodes = document.querySelectorAll("[data-lang]");
+      for (var m = 0; m < nodes.length; m++) {
+        nodes[m].setAttribute("aria-pressed",
+          nodes[m].getAttribute("data-lang") === currentLang ? "true" : "false");
+      }
+
+      if (persist) {
+        try { localStorage.setItem(STORAGE_KEY, currentLang); } catch (e) { /* ignore */ }
+      }
+
+      render();
+    }
+
+    document.addEventListener("click", function (event) {
+      var target = event.target;
+      var button = target && target.closest ? target.closest("[data-lang]") : null;
+      if (!button) return;
+
+      var lang = button.getAttribute("data-lang");
+      if (lang === currentLang) return;
+      apply(lang, true);
+
+      try {
+        var url = new URL(location.href);
+        url.searchParams.set("lang", lang);
+        history.replaceState(null, "", url);
+      } catch (e) { /* ignore */ }
+    });
+
+    apply(detectLanguage(), false);
 
     fetch("./versions.json", { cache: "no-store" })
       .then(function (response) {
@@ -398,32 +639,11 @@
         return response.json();
       })
       .then(function (data) {
-        var apps = data.apps || {};
-        Object.keys(apps).forEach(function (app) {
-          if (!/^[a-z]+$/.test(app)) return;
-          var info = apps[app] || {};
-          var nodes = document.querySelectorAll('[data-app="' + app + '"]');
-          for (var i = 0; i < nodes.length; i++) {
-            if (info.version) nodes[i].textContent = info.version;
-            if (info.released) {
-              var released = new Date(info.released);
-              if (!isNaN(released)) {
-                nodes[i].title = "Released " + released.toLocaleDateString(undefined, { dateStyle: "medium" });
-              }
-            }
-          }
-        });
-
-        if (deployed && data.generated_at) {
-          var generated = new Date(data.generated_at);
-          if (!isNaN(generated)) {
-            deployed.textContent = generated.toLocaleDateString(undefined, { dateStyle: "medium" });
-            deployed.setAttribute("datetime", data.generated_at);
-          }
-        }
+        appData = data;
+        render();
       })
       .catch(function () {
-        /* Offline preview (file://) or no versions.json: keep the fallback text. */
+        /* Offline preview or no versions.json: keep the localized fallback. */
       });
   })();
 </script>

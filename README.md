@@ -92,6 +92,14 @@ SolidCraft. The deployment keeps each app's license material next to the app:
 - No GPL or AGPL project is currently published, so there is no additional source-offer
   obligation; if a copyleft app is added later, keep its license/notices and link its source.
 
+## Languages
+
+The landing page ships English and Simplified Chinese. It picks a language from `?lang=en` /
+`?lang=zh`, then from the choice stored in `localStorage`, then from the browser language; the
+EN / 中文 switch in the header overrides both and keeps the query string in the URL. All copy
+lives in the `messages` object in `index.html` — add another language object and a button to
+extend it. App names are brands and stay as-is; descriptions and site text are translated.
+
 ## Preview locally
 
 ```sh
