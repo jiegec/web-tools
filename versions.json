@@ -1,5 +1,5 @@
 {
-  "checked_at": "2026-11-16T11:43:25Z",
+  "checked_at": "2026-11-23T13:12:25Z",
   "apps": {
     "wordcraft": {
       "version": "v0.18.1",
@@ -26,10 +26,10 @@
       "web_zip": "https://github.com/storytold/gridcraft/releases/download/v0.19.1/gridcraft-web-0.19.1.zip"
     },
     "pdfcraft": {
-      "version": "v0.21.1",
-      "released": "2026-11-12T02:18:37Z",
-      "release_url": "https://github.com/storytold/pdfcraft/releases/tag/v0.21.1",
-      "web_zip": "https://github.com/storytold/pdfcraft/releases/download/v0.21.1/pdfcraft-web-0.21.1.zip"
+      "version": "v0.22.0",
+      "released": "2026-11-23T03:45:29Z",
+      "release_url": "https://github.com/storytold/pdfcraft/releases/tag/v0.22.0",
+      "web_zip": "https://github.com/storytold/pdfcraft/releases/download/v0.22.0/pdfcraft-web-0.22.0.zip"
     },
     "lightcraft": {
       "version": "v0.21.1",
@@ -50,10 +50,10 @@
       "web_zip": "https://github.com/storytold/cadcraft/releases/download/v0.20.1/cadcraft-web-0.20.1.zip"
     },
     "solidcraft": {
-      "version": "v0.43.0",
-      "released": "2026-11-16T03:20:18Z",
-      "release_url": "https://github.com/tangency-labs/solidcraft/releases/tag/v0.43.0",
-      "web_zip": "https://github.com/tangency-labs/solidcraft/releases/download/v0.43.0/solidcraft-web-0.43.0.zip"
+      "version": "v0.47.0",
+      "released": "2026-11-23T01:35:43Z",
+      "release_url": "https://github.com/tangency-labs/solidcraft/releases/tag/v0.47.0",
+      "web_zip": "https://github.com/tangency-labs/solidcraft/releases/download/v0.47.0/solidcraft-web-0.47.0.zip"
     },
     "soundcraft": {
       "version": "v0.20.1",
@@ -98,10 +98,10 @@
       "web_zip": "https://github.com/storytold/effectcraft/releases/download/v0.24.1/effectcraft-web-0.24.1.zip"
     },
     "vibeoffice": {
-      "version": "v2026.11.04-2ee100",
-      "released": "2026-11-04T00:57:15Z",
-      "release_url": "https://github.com/tcchen2026/VibeOffice/releases/tag/v2026.11.04-2ee100",
-      "tarball": "https://github.com/tcchen2026/VibeOffice/archive/refs/tags/v2026.11.04-2ee100.tar.gz",
+      "version": "v2026.11.22-6657e9",
+      "released": "2026-11-22T05:56:32Z",
+      "release_url": "https://github.com/tcchen2026/VibeOffice/releases/tag/v2026.11.22-6657e9",
+      "tarball": "https://github.com/tcchen2026/VibeOffice/archive/refs/tags/v2026.11.22-6657e9.tar.gz",
       "subdir": "public"
     }
   }
